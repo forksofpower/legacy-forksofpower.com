@@ -6,26 +6,6 @@
     <link rel="stylesheet" href="css/main.css" media="screen">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ghost.patrickjones.tech/public/ghost-sdk.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        ghost.init({
-            clientId: "ghost-frontend",
-            clientSecret: "e4576bb98658"
-        });
-        function onSuccess(data) {
-            var $result = $('#blog-posts');
-            $.each(data.posts, function (i, post) {
-                $result.append(
-                    '<li>' + post.title + '</li>'
-                );
-            });
-        }
-
-        jQuery(document).ready(function () {
-            $.get(
-                ghost.url.api('posts', {limit: 3})
-            ).done(onSuccess);
-        });
-    </script>
   </head>
   <body onload="loaded">
     <section class="header">
@@ -50,6 +30,26 @@
 
       ga('create', 'UA-89680464-1', 'auto');
       ga('send', 'pageview');
+    </script>
+    <script type="text/javascript">
+        ghost.init({
+            clientId: "ghost-frontend",
+            clientSecret: "e4576bb98658"
+        });
+        function onSuccess(data) {
+            var $result = $('#blog-posts');
+            $.each(data.posts, function (i, post) {
+                $result.append(
+                    '<li>' + post.title + '</li>'
+                );
+            });
+        }
+
+        jQuery(document).ready(function () {
+            $.get(
+                ghost.url.api('posts', {limit: 3})
+            ).done(onSuccess);
+        });
     </script>
   </body>
 </html>
