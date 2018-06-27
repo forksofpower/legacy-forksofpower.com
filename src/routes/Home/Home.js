@@ -1,5 +1,7 @@
 import React, { Component} from 'react';
 import './Home.css';
+import { connect } from 'react-redux';
+import { showMenu, hideMenu, toggleMenu } from "../../actions/menuActions";
 
 class Logo extends Component {
   constructor(props, context) {

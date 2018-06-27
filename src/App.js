@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+
+import { Provider } from 'react-redux';
+
+import FadeIn from 'react-fade-in';
+import {Home, About, Contact, Projects, Work} from './routes';
+
 import './App.css';
 import anime from "animejs";
 import Transition from "react-transition-group/Transition";
 import TransitionGroup from "react-transition-group/TransitionGroup";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-import FadeIn from 'react-fade-in';
-import {Home, About, Contact, Projects, Work} from './routes';
+
+import store from './store';
 
 const animationTimings = {
     gridEnter: 200,
@@ -124,66 +130,67 @@ const FadingRoute = ({ component: Component, ...rest }) => (
 );
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [
-                { name: 'Home', path: '/' },
-                { name: 'About', path: '/about' },
-                // { name: 'Projects', path: '/projects' },
-                { name: 'Work', path: '/work'},
-                { name: 'Articles', path: '/articles' },
-                { name: 'Contact', path: '/contact' },
-            ],
-            visible: true
-        }
-    };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        { name: 'Home', path: '/' },
+        { name: 'About', path: '/about' },
+        { name: 'Work', path: '/work'},
+        { name: 'Articles', path: '/articles' },
+        { name: 'Contact', path: '/contact' },
+      ],
+      visible: true
+    }
+  };
 
-    toggleVisible = () => {
-        this.setState({ visible: !this.state.visible});
-    };
-    render() {
-        return (
-            <Router>
-                <div style={{ display: "flex"}}>
-                    <Transition
-                        unmountOnExit
-                        appear
-                        addEndListener={(node, done) => node.addEventListener(ANIMATION_DONE_EVENT, done)}
-                        onEnter={AnimateNavIn}
-                        onExit={AnimateNavOut}
-                        in={this.state.visible} >
-                        <ul className={'topbar'}>
-                            <TransitionGroup component={null}>
-                            {this.state.items.map((item, index) => (
-                                <Transition
-                                key={item.name}
-                                onEnter={AnimateNavLinkIn}
-                                onExit={AnimateNavLinkOut}
-                                addEndListener={(node, done) => {
-                                    node.addEventListener(ANIMATION_DONE_EVENT, done)
-                                }}>
-                                    <li className="nav-link">
-                                        <NavLink exact to={item.path} activeClassName="nav-link-active">{item.name.toUpperCase()}</NavLink>
-                                    </li>
-                                </Transition>
-                            ))}
-                            </TransitionGroup>
-                        </ul>
-                    </Transition>
-                    <div className="content">
-                        <button className={"toggle-menu"} type={"button"} onMouseLeave={this.toggleVisible} onMouseEnter={this.toggleVisible} onClick={this.toggleVisible}>Toggle Menu</button>
-                        <FadingRoute exact path="/" component={Home} />
-                        <FadingRoute path="/about" component={About} />
-                        {/*<Route path="/blog" component={Blog}*/}
-                        <FadingRoute path="/projects" component={Projects} />
-                        <FadingRoute path="/work" component={Work} />
-                        <FadingRoute path="/contact" component={Contact} />
-                    </div>
-                </div>
-            </Router>
-        );
-    };
+  toggleVisible = () => {
+      this.setState({ visible: !this.state.visible});
+  };
+  render() {
+    return (
+      <Provider store={store}>
+      <Router>
+        <div style={{ display: "flex"}}>
+          <Transition
+              unmountOnExit
+              appear
+              addEndListener={(node, done) => node.addEventListener(ANIMATION_DONE_EVENT, done)}
+              onEnter={AnimateNavIn}
+              onExit={AnimateNavOut}
+              in={this.state.visible} >
+            <ul className={'topbar'}>
+              <TransitionGroup component={null}>
+              {this.state.items.map((item, index) => (
+                <Transition
+                key={item.name}
+                onEnter={AnimateNavLinkIn}
+                onExit={AnimateNavLinkOut}
+                addEndListener={(node, done) => {
+                    node.addEventListener(ANIMATION_DONE_EVENT, done)
+                }}>
+                  <li className="nav-link">
+                    <NavLink exact to={item.path} activeClassName="nav-link-active">{item.name.toUpperCase()}</NavLink>
+                  </li>
+                </Transition>
+              ))}
+              </TransitionGroup>
+            </ul>
+          </Transition>
+          <div className="content">
+            <button className={"toggle-menu"} type={"button"} onMouseLeave={this.toggleVisible} onMouseEnter={this.toggleVisible} onClick={this.toggleVisible}>Toggle Menu</button>
+            <FadingRoute exact path="/" component={Home} />
+            <FadingRoute path="/about" component={About} />
+            {/*<Route path="/blog" component={Blog}*/}
+            <FadingRoute path="/projects" component={Projects} />
+            <FadingRoute path="/work" component={Work} />
+            <FadingRoute path="/contact" component={Contact} />
+          </div>
+        </div>
+      </Router>
+      </Provider>
+    );
+  };
 }
 
 export default App;
