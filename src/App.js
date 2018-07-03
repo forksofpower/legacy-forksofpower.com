@@ -136,9 +136,9 @@ class App extends Component {
       items: [
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
-        { name: 'Work', path: '/work'},
+        // { name: 'Work', path: '/work'},
         { name: 'Articles', path: '/articles' },
-        { name: 'Contact', path: '/contact' },
+        // { name: 'Contact', path: '/contact' },
       ],
       visible: true
     }
