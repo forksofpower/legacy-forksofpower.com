@@ -12,6 +12,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $heading-font;
   color: $primary-color;
 }
+p, ul {
+  font-family: $body-font;
+  color: $primary-color;
+}
 //.toggle-menu {
 //  position: absolute;
 //  margin: auto;

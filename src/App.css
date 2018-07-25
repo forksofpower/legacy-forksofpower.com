@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif;
   color: #CAD3C8; }
 
+p, ul {
+  font-family: "Istok Web", sans-serif;
+  color: #CAD3C8; }
+
 .toggle-menu {
   display: none; }
 
